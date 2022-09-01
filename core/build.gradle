@@ -1,0 +1,43 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+    id 'org.jetbrains.kotlin.plugin.serialization' version '1.7.10'
+    id 'com.google.devtools.ksp' version '1.7.10-1.0.6'
+}
+
+android {
+    compileSdk 32
+
+    defaultConfig {
+        minSdk 21
+        targetSdk 32
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+    kotlinOptions {
+        jvmTarget = '11'
+    }
+}
+
+dependencies {
+    ksp("de.jensklingenberg.ktorfit:ktorfit-ksp:$versions.ktorfit")
+    implementation("de.jensklingenberg.ktorfit:ktorfit-lib:$versions.ktorfit")
+    implementation("io.ktor:ktor-client-serialization:$versions.ktor")
+    implementation("io.ktor:ktor-client-content-negotiation:$versions.ktor")
+    implementation("io.ktor:ktor-serialization-kotlinx-json:$versions.ktor")
+
+    testImplementation 'junit:junit:4.13.2'
+
+}
