@@ -1,9 +1,9 @@
 package org.mifos.client.core.charges
 
 
-import org.mifos.client.core.common.Currency
-import org.mifos.client.core.models.EnumOptionData
 import kotlinx.serialization.Serializable
+import org.mifos.client.core.common.Currency
+import org.mifos.client.core.common.EnumOptionData
 
 @Serializable
 data class Charge(

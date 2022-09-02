@@ -1,15 +1,15 @@
 package org.mifos.client.core.staff
 
-import org.mifos.client.core.ApiResponseFlow
-import de.jensklingenberg.ktorfit.http.GET
-import de.jensklingenberg.ktorfit.http.Query
+import com.skydoves.sandwich.ApiResponse
+import retrofit2.http.GET
+import retrofit2.http.Query
 
 
 interface StaffService {
     @GET("staff?status=all")
-    fun getStaffForOffice(@Query("officeId") officeId: Int): ApiResponseFlow<List<Staff>>
+    suspend fun getStaffForOffice(@Query("officeId") officeId: Int): ApiResponse<List<Staff>>
 
     @GET("staff")
-    fun getAllStaff(): ApiResponseFlow<List<Staff>>
+    suspend fun getAllStaff(): ApiResponse<List<Staff>>
 
 }

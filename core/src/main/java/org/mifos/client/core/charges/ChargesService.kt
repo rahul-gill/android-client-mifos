@@ -1,28 +1,28 @@
 package org.mifos.client.core.charges
 
-import org.mifos.client.core.ApiResponseFlow
+import com.skydoves.sandwich.ApiResponse
 import org.mifos.client.core.common.GenericResponse
 import org.mifos.client.core.common.Page
-import de.jensklingenberg.ktorfit.http.*
+import retrofit2.http.*
 
 
 interface ChargesService {
 
     @GET("clients/{clientId}/charges/template")
-    fun getAllClientCharges(@Path("clientId") clientId: Int): ApiResponseFlow<ClientChargeTemplate>
+    suspend fun getAllClientCharges(@Path("clientId") clientId: Int): ApiResponse<ClientChargeTemplate>
 
 
     @GET("clients/{clientId}/charges")
-    fun getListOfCharges(
+    suspend fun getListOfCharges(
         @Path("clientId") clientId: Int,
         @Query("offset") offset: Int,
         @Query("limit") limit: Int
-    ): ApiResponseFlow<Page<Charge>>
+    ): ApiResponse<Page<Charge>>
 
     @POST("clients/{clientId}/charges")
-    fun createCharges(
+    suspend fun createCharges(
         @Path("clientId") clientId: Int,
         @Body chargesPayload: CreateClientChargePayload
-    ): ApiResponseFlow<GenericResponse>
+    ): ApiResponse<GenericResponse>
 
 }

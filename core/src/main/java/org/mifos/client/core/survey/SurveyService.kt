@@ -1,23 +1,22 @@
 package org.mifos.client.core.survey
 
-import org.mifos.client.core.ApiResponseFlow
-import org.mifos.client.core.models.Scorecard
-import de.jensklingenberg.ktorfit.http.Body
-import de.jensklingenberg.ktorfit.http.GET
-import de.jensklingenberg.ktorfit.http.POST
-import de.jensklingenberg.ktorfit.http.Path
+import com.skydoves.sandwich.ApiResponse
+import retrofit2.http.Body
+import retrofit2.http.GET
+import retrofit2.http.POST
+import retrofit2.http.Path
 
 
 interface SurveyService {
     @GET("surveys")
-    fun getAllSurveys(): ApiResponseFlow<List<Survey>>
+    suspend fun getAllSurveys(): ApiResponse<List<Survey>>
 
     @GET("surveys/{surveyId}")
-    fun getSurvey(@Path("surveyId") surveyId: Int): ApiResponseFlow<Survey>
+    suspend fun getSurvey(@Path("surveyId") surveyId: Int): ApiResponse<Survey>
 
     @POST("surveys/{surveyId}/scorecards")
-    fun submitScore(
+    suspend fun submitScore(
         @Path("surveyId") surveyId: Int,
-        @Body scorecardPayload: Scorecard
-    ): ApiResponseFlow<Scorecard>
+        @Body scorecardPayload: SurveyScorecard
+    ): ApiResponse<SurveyScorecard>
 }

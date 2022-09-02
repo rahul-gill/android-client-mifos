@@ -1,52 +1,52 @@
 package org.mifos.client.core.runreports
 
-import org.mifos.client.core.ApiResponseFlow
-import de.jensklingenberg.ktorfit.http.GET
-import de.jensklingenberg.ktorfit.http.Path
-import de.jensklingenberg.ktorfit.http.Query
-import de.jensklingenberg.ktorfit.http.QueryMap
+import com.skydoves.sandwich.ApiResponse
+import retrofit2.http.GET
+import retrofit2.http.Path
+import retrofit2.http.Query
+import retrofit2.http.QueryMap
 
 
 interface RunReportsService {
 
     @GET("runreports/reportCategoryList")
-    fun getReportCategories(
+    suspend fun getReportCategories(
         @Query("R_reportCategory") category: String,
         @Query("genericResultSet") genericResultSet: Boolean,
         @Query("parameterType") parameterType: Boolean
-    ): ApiResponseFlow<List<ReportItem>>
+    ): ApiResponse<List<ReportItem>>
 
 
     @GET("runreports/FullParameterList")
-    fun getReportFullParameterList(
+    suspend fun getReportFullParameterList(
         @Query("R_reportListing") reportName: String,
         @Query("parameterType") parameterType: Boolean
-    ): ApiResponseFlow<FullParameterListResponse>
+    ): ApiResponse<FullParameterListResponse>
 
     @GET("runreports/{path}")
-    fun getReportParameterDetails(
+    suspend fun getReportParameterDetails(
         @Path("path") parameterName: String,
         @Query("parameterType") parameterType: Boolean
-    ): ApiResponseFlow<FullParameterListResponse>
+    ): ApiResponse<FullParameterListResponse>
 
     @GET("runreports/{path}")
-    fun getReportOffice(
+    suspend fun getReportOffice(
         @Path("path") parameterName: String,
         @Query("R_officeId") office: Int,
         @Query("parameterType") parameterType: Boolean
-    ): ApiResponseFlow<FullParameterListResponse>
+    ): ApiResponse<FullParameterListResponse>
 
     @GET("runreports/{path}")
-    fun getReportProduct(
+    suspend fun getReportProduct(
         @Path("path") parameterName: String,
         @Query("R_currencyId") currency: String,
         @Query("parameterType") parameterType: Boolean
-    ): ApiResponseFlow<FullParameterListResponse>
+    ): ApiResponse<FullParameterListResponse>
 
     @GET("runreports/{path}")
-    fun getRunReportWithQuery(
+    suspend fun getRunReportWithQuery(
         @Path("path") reportName: String,
         @QueryMap options: Map<String, String>
-    ): ApiResponseFlow<FullParameterListResponse>
+    ): ApiResponse<FullParameterListResponse>
 
 }

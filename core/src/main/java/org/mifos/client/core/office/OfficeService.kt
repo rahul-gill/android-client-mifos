@@ -1,10 +1,10 @@
 package org.mifos.client.core.office
 
-import org.mifos.client.core.ApiResponseFlow
-import de.jensklingenberg.ktorfit.http.GET
+import com.skydoves.sandwich.ApiResponse
+import retrofit2.http.GET
 
 interface OfficeService {
 
     @GET("offices")
-    fun getAllOffices(): ApiResponseFlow<List<Office>>
+    suspend fun getAllOffices(): ApiResponse<List<Office>>
 }

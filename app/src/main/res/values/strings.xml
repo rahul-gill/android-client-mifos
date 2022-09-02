@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Mifos Android Client</string>
+    <string name="username">username</string>
+    <string name="password">password</string>
+    <string name="toggle_password_visibility">Toggle Password Visibility</string>
+    <string name="login">Login</string>
 </resources>

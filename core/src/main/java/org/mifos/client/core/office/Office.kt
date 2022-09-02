@@ -5,7 +5,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class OfficeItem(
+data class Office(
     val id: Int,
     val name: String,
     val nameDecorated: String,

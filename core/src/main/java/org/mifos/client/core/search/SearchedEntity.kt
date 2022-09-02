@@ -1,7 +1,7 @@
 package org.mifos.client.core.search
 
 
-import org.mifos.client.core.models.EnumOptionData
+import org.mifos.client.core.common.EnumOptionData
 import kotlinx.serialization.Serializable
 
 @Serializable

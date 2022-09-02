@@ -4,12 +4,12 @@ plugins {
 }
 
 android {
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         applicationId "org.mifos.client.android"
         minSdk 21
-        targetSdk 32
+        targetSdk 33
         versionCode 1
         versionName "1.0"
 
@@ -54,4 +54,6 @@ dependencies {
     testImplementation libraries.junit
     androidTestImplementation libraries.android_tests
     debugImplementation libraries.compose_debug
+    implementation "com.github.skydoves:sandwich:1.2.7"
+    implementation(project(":core"))
 }

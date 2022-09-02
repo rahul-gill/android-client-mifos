@@ -1,7 +1,7 @@
 package org.mifos.client.core.savingsaccounts
 
 import org.mifos.client.core.common.Currency
-import org.mifos.client.core.models.EnumOptionData
+import org.mifos.client.core.common.EnumOptionData
 import kotlinx.serialization.Serializable
 
 @Serializable

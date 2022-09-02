@@ -1,67 +1,67 @@
 package org.mifos.client.core.savingsaccounts
 
-import org.mifos.client.core.ApiResponseFlow
+import com.skydoves.sandwich.ApiResponse
 import org.mifos.client.core.common.ActivationPayload
 import org.mifos.client.core.common.ApprovalPayload
 import org.mifos.client.core.common.GenericResponse
-import de.jensklingenberg.ktorfit.http.*
+import retrofit2.http.*
 
 interface SavingsAccountsService {
 
-    @GET("/{savingsAccountType}/{savingsAccountId}?associations=transactions")
-    fun getSavingsAccountWithAssociations(
+    @GET("{savingsAccountType}/{savingsAccountId}?associations=transactions")
+    suspend fun getSavingsAccountWithAssociations(
         @Path("savingsAccountType") savingsAccountType: String = "savingsaccounts",
         @Path("savingsAccountId") savingsAccountId: Int,
-    ): ApiResponseFlow<SavingsAccountWithTransactions>
+    ): ApiResponse<SavingsAccountWithTransactions>
 
-    @GET("/{savingsAccountType}/{savingsAccountId}/transactions/template")
-    fun getSavingsAccountTransactionTemplate(
+    @GET("{savingsAccountType}/{savingsAccountId}/transactions/template")
+    suspend fun getSavingsAccountTransactionTemplate(
         @Path("savingsAccountType") savingsAccountType: String = "savingsaccounts",
         @Path("savingsAccountId") savingsAccountId: Int,
         @Query("command") transactionType: String
-    ): ApiResponseFlow<SavingsAccountTransactionTemplate>
+    ): ApiResponse<SavingsAccountTransactionTemplate>
 
     /**
      * Action: Deposit, Withdrawal
      */
     @POST("{savingsAccountType}/{savingsAccountId}/transactions")
-    fun processTransaction(
+    suspend fun processTransaction(
         @Path("savingsAccountType") savingsAccountType: String = "savingsaccounts",
         @Path("savingsAccountId") savingsAccountId: Int,
         @Query("command") transactionType: String,
         @Body savingsAccountTransactionRequest: PostTransactionRequest
-    ): ApiResponseFlow<PostTransactionResponse>
+    ): ApiResponse<PostTransactionResponse>
 
     @POST("savingsaccounts/{savingsAccountId}/command=activate")
-    fun activateSavings(
+    suspend fun activateSavings(
         @Path("savingsAccountId") savingsAccountId: Int,
         @Body body: ActivationPayload
-    ): ApiResponseFlow<GenericResponse>
+    ): ApiResponse<GenericResponse>
 
     @POST("savingsaccounts/{savingsAccountId}command=approve")
-    fun approveSavingsApplication(
+    suspend fun approveSavingsApplication(
         @Path("savingsAccountId") savingsAccountId: Int,
         @Body savingsApproval: ApprovalPayload
-    ): ApiResponseFlow<GenericResponse>
+    ): ApiResponse<GenericResponse>
 
     @GET("savingsproducts")
-    fun getAllSavingsProducts(): ApiResponseFlow<List<SavingsProduct>>
+    suspend fun getAllSavingsProducts(): ApiResponse<List<SavingsProduct>>
 
     @POST("savingsaccounts")
-    fun createSavingsAccount(@Body savingsPayload: CreateSavingsAccountRequest): ApiResponseFlow<CreateSavingsAccountResponse>
+    suspend fun createSavingsAccount(@Body savingsPayload: CreateSavingsAccountRequest): ApiResponse<CreateSavingsAccountResponse>
 
     @GET("savingsproducts/template")
-    fun getSavingsProductsTemplate(): ApiResponseFlow<SavingsProductTemplate>
+    suspend fun getSavingsProductsTemplate(): ApiResponse<SavingsProductTemplate>
 
     @GET("savingsaccounts/template")
-    fun getClientSavingsAccountTemplateByProduct(
+    suspend fun getClientSavingsAccountTemplateByProduct(
         @Query("clientId") clientId: Int,
         @Query("productId") productId: Int
-    ): ApiResponseFlow<SavingsAccountTemplate>
+    ): ApiResponse<SavingsAccountTemplate>
 
     @GET("savingsaccounts/template")
-    fun getGroupSavingsAccountTemplateByProduct(
+    suspend fun getGroupSavingsAccountTemplateByProduct(
         @Query("groupId") groupId: Int,
         @Query("productId") productId: Int
-    ): ApiResponseFlow<SavingsAccountTemplate>
+    ): ApiResponse<SavingsAccountTemplate>
 }

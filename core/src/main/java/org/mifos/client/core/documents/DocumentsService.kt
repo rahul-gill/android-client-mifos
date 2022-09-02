@@ -1,50 +1,50 @@
 package org.mifos.client.core.documents
 
-import org.mifos.client.core.ApiResponseFlow
+import com.skydoves.sandwich.ApiResponse
 import org.mifos.client.core.common.GenericResponse
-import de.jensklingenberg.ktorfit.http.*
-import io.ktor.client.statement.*
+import retrofit2.http.*
+import okhttp3.ResponseBody
 
 
 interface DocumentService {
     @GET("{entityType}/{entityId}/documents")
-    fun getDocuments(
+    suspend fun getDocuments(
         @Path("entityType") entityType: String,
         @Path("entityId") entityId: Int
-    ): ApiResponseFlow<List<Document>>
+    ): ApiResponse<List<Document>>
 
     @POST("{entityType}/{entityId}/documents")
     @Multipart
-    fun createDocument(
+    suspend fun createDocument(
         @Path("entityType") entityType: String,
         @Path("entityId") entityId: Int,
         @Part("name") nameOfDocument: String,
         @Part("description") description: String,
         @Part typedFile: Part
-    ): ApiResponseFlow<GenericResponse>
+    ): ApiResponse<GenericResponse>
 
     @GET("{entityType}/{entityId}/documents/{documentId}/attachment")
-    fun downloadDocument(
+    suspend fun downloadDocument(
         @Path("entityType") entityType: String,
         @Path("entityId") entityId: Int,
         @Path("documentId") documentId: Int
-    ): ApiResponseFlow<HttpResponse>
+    ): ApiResponse<ResponseBody>
 
     @DELETE("{entityType}/{entityId}/documents/{documentId}")
-    fun removeDocument(
+    suspend fun removeDocument(
         @Path("entityType") entityType: String,
         @Path("entityId") entityId: Int,
         @Path("documentId") documentId: Int
-    ): ApiResponseFlow<GenericResponse>
+    ): ApiResponse<GenericResponse>
 
     @PUT("{entityType}/{entityId}/documents/{documentId}")
     @Multipart
-    fun updateDocument(
+    suspend fun updateDocument(
         @Path("entityType") entityType: String,
         @Path("entityId") entityId: Int,
         @Path("documentId") documentId: Int,
         @Part("name") nameOfDocument: String,
         @Part("description") description: String,
         @Part typedFile: Part
-    ): ApiResponseFlow<GenericResponse>
+    ): ApiResponse<GenericResponse>
 }

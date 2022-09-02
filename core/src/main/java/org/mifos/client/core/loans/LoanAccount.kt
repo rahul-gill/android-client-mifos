@@ -1,6 +1,6 @@
 package org.mifos.client.core.loans
 
-import org.mifos.client.core.models.EnumOptionData
+import org.mifos.client.core.common.EnumOptionData
 import kotlinx.serialization.Serializable
 
 @Serializable

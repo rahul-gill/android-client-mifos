@@ -1,55 +1,55 @@
 package org.mifos.client.core.collectionsheet
 
-import org.mifos.client.core.ApiResponseFlow
+import com.skydoves.sandwich.ApiResponse
 import org.mifos.client.core.Consts
 import org.mifos.client.core.common.GenericResponse
-import de.jensklingenberg.ktorfit.http.*
+import retrofit2.http.*
 
 interface CollectionSheetService {
     @POST("collectionsheet?command=generateCollectionSheet")
-    fun getIndividualCollectionSheet(
+    suspend fun getIndividualCollectionSheet(
         @Body payload: GenerateCollectionSheetPayload
-    ): ApiResponseFlow<IndividualCollectionSheet>
+    ): ApiResponse<IndividualCollectionSheet>
 
     @POST("collectionsheet?command=saveCollectionSheet")
-    fun saveIndividualCollectionSheet(
+    suspend fun saveIndividualCollectionSheet(
         @Body payload: SaveCollectionSheetPayload
-    ): ApiResponseFlow<GenericResponse>
+    ): ApiResponse<GenericResponse>
 
     @GET("centers")
-    fun fetchCenterDetails(
+    suspend fun fetchCenterDetails(
         @Query("dateFormat") format: String = Consts.API_DATE_FORMAT,
         @Query("locale") locale: String = Consts.API_LOCALE,
         @Query("meetingDate") meetingDate: String,
         @Query("officeId") officeId: Int,
         @Query("staffId") staffId: Int
-    ): ApiResponseFlow<List<CenterDetails>>
+    ): ApiResponse<List<CenterDetails>>
 
     @POST("centers/{centerId}?command=generateCollectionSheet")
-    fun fetchProductiveSheet(
+    suspend fun fetchProductiveSheet(
         @Path("centerId") centerId: Int,
         @Body payload: CollectionSheetRequestPayload
-    ): ApiResponseFlow<CollectionSheetResponse>
+    ): ApiResponse<CollectionSheetResponse>
 
     @POST("centers/{centerId}?command=saveCollectionSheet")
-    fun submitProductiveSheet(
+    suspend fun submitProductiveSheet(
         @Path("centerId") centerId: Int,
         @Body payload: ProductiveCollectionSheetPayload
-    ): ApiResponseFlow<GenericResponse>
+    ): ApiResponse<GenericResponse>
 
     @POST("groups/{groupId}?command=generateCollectionSheet")
-    fun fetchCollectionSheet(
+    suspend fun fetchCollectionSheet(
         @Path("groupId") groupId: Int,
         @Body payload: CollectionSheetRequestPayload
-    ): ApiResponseFlow<CollectionSheetResponse>
+    ): ApiResponse<CollectionSheetResponse>
 
     @POST("groups/{groupId}?command=saveCollectionSheet")
-    fun submitCollectionSheet(
+    suspend fun submitCollectionSheet(
         @Path("groupId") groupId: Int, @Body payload: CollectionSheetPayload
-    ): ApiResponseFlow<GenericResponse>
+    ): ApiResponse<GenericResponse>
 
     @GET("centers/{centerId}?associations=groupMembers, collectionMeetingCalendar")
-    fun fetchGroupsAssociatedWithCenter(
+    suspend fun fetchGroupsAssociatedWithCenter(
         @Path("centerId") centerId: Int
-    ): ApiResponseFlow<CenterWithAssociations>
+    ): ApiResponse<CenterWithAssociations>
 }

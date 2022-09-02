@@ -1,6 +1,6 @@
 package org.mifos.client.core.centers
 
-import org.mifos.client.core.models.EnumOptionData
+import org.mifos.client.core.common.EnumOptionData
 import org.mifos.client.core.groups.Group
 import kotlinx.serialization.Serializable
 

@@ -1,35 +1,35 @@
 package org.mifos.client.core.checkerinbox
 
-import org.mifos.client.core.ApiResponseFlow
+import com.skydoves.sandwich.ApiResponse
 import org.mifos.client.core.common.GenericResponse
-import de.jensklingenberg.ktorfit.http.*
+import retrofit2.http.*
 
 
 interface CheckerInboxService {
 
     @GET("makercheckers")
-    fun getCheckerList() : ApiResponseFlow<List<CheckerTask>>
+    suspend fun getCheckerList() : ApiResponse<List<CheckerTask>>
 
     @POST("makercheckers/{auditId}?command=approve")
-    fun approveCheckerEntry(@Path("auditId") auditId: Int): ApiResponseFlow<GenericResponse>
+    suspend fun approveCheckerEntry(@Path("auditId") auditId: Int): ApiResponse<GenericResponse>
 
     @POST("makercheckers/{auditId}?command=reject")
-    fun rejectCheckerEntry(@Path("auditId") auditId: Int): ApiResponseFlow<GenericResponse>
+    suspend fun rejectCheckerEntry(@Path("auditId") auditId: Int): ApiResponse<GenericResponse>
 
     @DELETE("makercheckers/{auditId}")
-    fun deleteCheckerEntry(@Path("auditId") auditId: Int): ApiResponseFlow<GenericResponse>
+    suspend fun deleteCheckerEntry(@Path("auditId") auditId: Int): ApiResponse<GenericResponse>
 
     @GET("rescheduleloans?command=pending")
-    fun getRescheduleLoansTaskList(): ApiResponseFlow<List<RescheduleLoansTask>>
+    suspend fun getRescheduleLoansTaskList(): ApiResponse<List<RescheduleLoansTask>>
 
     @GET("makercheckers/searchtemplate?fields=entityNames,actionNames")
-    fun getCheckerInboxSearchTempalate(): ApiResponseFlow<CheckerInboxSearchTemplate>
+    suspend fun getCheckerInboxSearchTempalate(): ApiResponse<CheckerInboxSearchTemplate>
 
     @GET("makercheckers")
-    fun getCheckerTasksFromResourceId(
+    suspend fun getCheckerTasksFromResourceId(
         @Query("actionName") actionName: String? = null,
         @Query("entityName") entityName: String? = null,
         @Query("resourceId") resourceId: Int? = null
-    ): ApiResponseFlow<List<CheckerTask>>
+    ): ApiResponse<List<CheckerTask>>
 
 }
