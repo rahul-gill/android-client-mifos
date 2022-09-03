@@ -2,6 +2,7 @@ plugins {
     id "com.android.application" version "7.2.2" apply false
     id "com.android.library" version "7.2.2" apply false
     id "org.jetbrains.kotlin.android" version "1.7.10" apply false
+    id 'com.google.dagger.hilt.android' version '2.43.2' apply false
 }
 
 task clean(type: Delete) {
@@ -16,8 +17,12 @@ ext.versions = [
         compose_compiler  : "1.3.0",
         compose_material3 : "1.0.0-beta01",
         compose_navigation_reimagined : "1.2.0",
-        ktor: "2.1.0",
-        ktorfit : "1.0.0-beta11"
+        retrofit: "2.9.0",
+        okhttp_logging_interceptor: "4.10.0",
+        retrofit_sandiwitch: "1.2.7",
+        kotlinx_serialization: "1.3.3",
+        retrofit_kotlinx_serialization_converter: "0.8.0",
+        hilt: "2.43.2",
 
 ]
 
@@ -32,13 +37,33 @@ ext.libraries = [
                 "androidx.activity:activity-compose:$versions.activity_compose",
                 "androidx.compose.material:material-icons-extended:$versions.compose"
         ],
-        compose_navigation_reimagined: "dev.olshevski.navigation:reimagined:$versions.compose_navigation_reimagined",
+        compose_navigation_reimagined: [
+                "dev.olshevski.navigation:reimagined:$versions.compose_navigation_reimagined",
+                "dev.olshevski.navigation:reimagined-hilt:$versions.compose_navigation_reimagined"
+        ],
         compose_debug: [
                 "androidx.compose.ui:ui-tooling:$versions.compose",
                 "androidx.compose.ui:ui-test-manifest:$versions.compose"
         ],
         lifecycle : [
                 "androidx.lifecycle:lifecycle-runtime-ktx:$versions.lifecycle",
+        ],
+
+        retrofit: [
+                "com.squareup.retrofit2:retrofit:$versions.retrofit",
+                "com.squareup.okhttp3:logging-interceptor:$versions.okhttp_logging_interceptor",
+                "com.github.skydoves:sandwich:$versions.retrofit_sandiwitch"
+        ],
+        json_serialization: [
+                "org.jetbrains.kotlinx:kotlinx-serialization-json:$versions.kotlinx_serialization",
+                "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:$versions.retrofit_kotlinx_serialization_converter"
+        ],
+
+        hilt: [
+                "com.google.dagger:hilt-android:$versions.hilt"
+        ],
+        hilt_compiler: [
+                "com.google.dagger:hilt-compiler:$versions.hilt"
         ],
 
         junit : "junit:junit:4.13.2",

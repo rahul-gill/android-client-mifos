@@ -1,31 +1,33 @@
 package org.mifos.client.android
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
-import androidx.lifecycle.lifecycleScope
-import com.skydoves.sandwich.onError
-import com.skydoves.sandwich.onException
-import com.skydoves.sandwich.onSuccess
-import com.skydoves.sandwich.toFlow
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.launch
-import org.mifos.client.android.auth.LoginScreen
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.MutableStateFlow
+import org.mifos.client.android.data.local_prefs.PrefsManager
+import org.mifos.client.android.ui.navigation.TopNavigationNavHost
+import org.mifos.client.android.ui.navigation.UserState
 import org.mifos.client.android.ui.theme.MifosAndroidClientTheme
-import org.mifos.client.core.auth.AuthPostRequest
-import org.mifos.client.core.auth.AuthService
-import org.mifos.client.core.retrofitClient
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
-    val authApi = retrofitClient.create(AuthService::class.java)
+    @Inject lateinit var prefsManager: PrefsManager
+
+    private val userAuthorizedWithPasscode = MutableStateFlow(false)
+
+    override fun onStop() {
+        super.onStop()
+        userAuthorizedWithPasscode.value = false
+        println("userAuthorizedWithPasscode:${userAuthorizedWithPasscode.value}")
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,21 +37,21 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    LoginScreen(
-                        onLogin = { username, password ->
-                            lifecycleScope.launch {
-                                authApi.authenticate(AuthPostRequest(username, password))
-                                    .onError {
-                                        println("Error: ${this.errorBody}")
-                                    }.onException {
-                                        println("onException: ${this.message} ${this.exception}")
-                                    }.onSuccess {
-                                        println("data: $data")
-                                    }
-                                    .toFlow().collectLatest {
-                                        println("Response: $it")
-                                    }
-                            }
+                    val userAuthed = userAuthorizedWithPasscode.collectAsState()
+                    println("isUserAuthenticated:${prefsManager.isUserAuthenticated}, isPasscodeSet: ${prefsManager.isPasscodeSet}, userAuthorizedWithPasscode: $userAuthorizedWithPasscode")
+                    TopNavigationNavHost(
+                        userState = when{
+                            !prefsManager.isUserAuthenticated -> UserState.LoggedOut
+                            prefsManager.isUserAuthenticated && !prefsManager.isPasscodeSet -> UserState.LoggedInPasscodeUnset
+                            userAuthed.value -> UserState.Authorized
+                            else -> UserState.LoggedInPasscodeSet
+                        },
+                        authenticateUser = {
+                            userAuthorizedWithPasscode.value  = it == prefsManager.passcode
+                            userAuthorizedWithPasscode.value
+                        },
+                        setPasscode = {
+                            prefsManager.passcode = it
                         }
                     )
                 }

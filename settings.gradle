@@ -14,4 +14,3 @@ dependencyResolutionManagement {
 }
 rootProject.name = "Mifos Android Client"
 include ':app'
-include ':core'

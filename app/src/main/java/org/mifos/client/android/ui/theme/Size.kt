@@ -12,9 +12,9 @@ data class Size(
     val iconSmall: Dp = 15.dp,
     val iconMedium: Dp = 24.dp,
     val iconLarge: Dp = 39.dp,
-    val imageSmall: Dp = 45.dp,
-    val imageMedium: Dp = 64.dp,
-    val imageLarge: Dp = 100.dp,
+    val imageSmall: Dp = 64.dp,
+    val imageMedium: Dp = 120.dp,
+    val imageLarge: Dp = 170.dp,
     val cardSmall: Dp = 90.dp,
     val cardMedium: Dp = 180.dp,
     val cardLarge: Dp = 300.dp

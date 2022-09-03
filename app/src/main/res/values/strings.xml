@@ -4,4 +4,8 @@
     <string name="password">password</string>
     <string name="toggle_password_visibility">Toggle Password Visibility</string>
     <string name="login">Login</string>
+    <string name="try_again">Try again</string>
+    <string name="passcode_do_not_match">Passcodes do not match!</string>
+    <string name="ok">OK</string>
+    <string name="forget_passcode">Forgot passcode? Login Manually.</string>
 </resources>

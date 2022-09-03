@@ -1,6 +1,10 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'org.jetbrains.kotlin.plugin.serialization' version '1.7.10'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+    id 'kotlin-parcelize'
 }
 
 android {
@@ -45,6 +49,12 @@ android {
     }
 }
 
+kapt {
+    correctErrorTypes = true
+    useBuildCache = true
+}
+
+
 dependencies {
     implementation libraries.androidx_core
     implementation libraries.compose
@@ -54,6 +64,10 @@ dependencies {
     testImplementation libraries.junit
     androidTestImplementation libraries.android_tests
     debugImplementation libraries.compose_debug
-    implementation "com.github.skydoves:sandwich:1.2.7"
-    implementation(project(":core"))
+
+    implementation libraries.retrofit
+    implementation libraries.json_serialization
+
+    implementation libraries.hilt
+    kapt libraries.hilt_compiler
 }
