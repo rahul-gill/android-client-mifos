@@ -15,16 +15,9 @@ import org.mifos.client.android.data.api_services.auth.AuthService
 import org.mifos.client.android.data.local_prefs.PrefsManager
 import javax.inject.Inject
 
-data class LoginScreenState(
-    val userName: String = "",
-    val password: String = "",
-    val isPasswordVisible: Boolean = false,
-    val isLoading: Boolean = false
-)
 
-sealed class LoginScreenEffects{
-    object LoginFailed: LoginScreenEffects()
-    object LoginSuccess: LoginScreenEffects()
+enum class LoginScreenEffects{
+    LoginFailed, LoginSuccess
 }
 
 @HiltViewModel

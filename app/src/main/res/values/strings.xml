@@ -8,4 +8,15 @@
     <string name="passcode_do_not_match">Passcodes do not match!</string>
     <string name="ok">OK</string>
     <string name="forget_passcode">Forgot passcode? Login Manually.</string>
+    <string name="search">Search</string>
+    <string name="clients">Clients</string>
+    <string name="groups">Groups</string>
+    <string name="centers">Centers</string>
+    <string name="all">All</string>
+    <string name="loan_accounts">Loan Accounts</string>
+    <string name="savings_accounts">Savings Accounts</string>
+    <string name="search_query_is_empty">Search query is empty</string>
+    <string name="no_results_found">No results found</string>
+    <string name="only_exact_matches">Only Exact Matches</string>
+    <string name="enter_search_query_here">Enter your search query here</string>
 </resources>

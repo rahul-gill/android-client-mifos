@@ -28,6 +28,8 @@ fun buildRetrofitClient(
         .connectTimeout(15, TimeUnit.SECONDS)
         .readTimeout(15, TimeUnit.SECONDS)
         .callTimeout(1, TimeUnit.MINUTES)
+        .addInterceptor(authInterceptor)
+        .addInterceptor(urlInterceptor)
         .addInterceptor(
             HttpLoggingInterceptor {
                 Log.d("Retrofit", it)
@@ -35,8 +37,6 @@ fun buildRetrofitClient(
                 level = HttpLoggingInterceptor.Level.BODY
             },
         )
-        .addInterceptor(authInterceptor)
-        .addInterceptor(urlInterceptor)
         .build()
 
     return Retrofit.Builder()

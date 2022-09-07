@@ -49,7 +49,7 @@ fun LoginScreen(
     LaunchedEffect(key1 = Unit){
         effectsFlow.onEach {
             when (it) {
-                is LoginScreenEffects.LoginFailed -> errorDialogState = true
+                LoginScreenEffects.LoginFailed -> errorDialogState = true
                 else -> onLoginSuccess()
             }
         }.collect()

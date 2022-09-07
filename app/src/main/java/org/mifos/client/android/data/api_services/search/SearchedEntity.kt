@@ -12,10 +12,10 @@ data class SearchedEntity(
     val entityType: String,
     val parentId: Int,
     val parentName: String,
-    val entityMobileNo: String?,
+    val entityMobileNo: String? = null,
     val entityStatus: EntityStatus,
-    val entityExternalId: String?,
-    val parentType: String?
+    val entityExternalId: String? = null,
+    val parentType: String? = null
 ) {
     @JvmInline
     @Serializable

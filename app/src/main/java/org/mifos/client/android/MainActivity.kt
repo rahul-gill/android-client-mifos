@@ -23,12 +23,6 @@ class MainActivity : ComponentActivity() {
 
     private val userAuthorizedWithPasscode = MutableStateFlow(false)
 
-    override fun onStop() {
-        super.onStop()
-        userAuthorizedWithPasscode.value = false
-        println("userAuthorizedWithPasscode:${userAuthorizedWithPasscode.value}")
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -38,7 +32,6 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     val userAuthed = userAuthorizedWithPasscode.collectAsState()
-                    println("isUserAuthenticated:${prefsManager.isUserAuthenticated}, isPasscodeSet: ${prefsManager.isPasscodeSet}, userAuthorizedWithPasscode: $userAuthorizedWithPasscode")
                     TopNavigationNavHost(
                         userState = when{
                             !prefsManager.isUserAuthenticated -> UserState.LoggedOut

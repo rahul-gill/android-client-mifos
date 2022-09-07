@@ -15,7 +15,7 @@ class AuthInterceptor @Inject constructor(
         val builder = request.newBuilder().header(Consts.HEADER_TENANT, tenant())
         token().let {
             if(it.isNotBlank())
-                builder.header(Consts.HEADER_AUTH, it)
+                builder.header(Consts.HEADER_AUTH, "Basic $it")
         }
         return chain.proceed(builder.build())
     }
