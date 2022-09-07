@@ -60,6 +60,8 @@ dependencies {
     implementation libraries.compose
     implementation libraries.lifecycle
     implementation libraries.compose_navigation_reimagined
+    implementation libraries.accompanist
+    implementation libraries.paging
 
     testImplementation libraries.junit
     androidTestImplementation libraries.android_tests

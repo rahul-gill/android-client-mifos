@@ -11,7 +11,7 @@ interface CentersService {
         @Query("offset") offset: Int,
         @Query("limit") limit: Int,
         @Query("paged") paged: Boolean = true
-    ): ApiResponse<Page<Center>>
+    ): Page<Center>
 
     @GET("centers/{centerId}/accounts")
     suspend fun getCenterAccounts(@Path("centerId") centerId: Int): ApiResponse<CenterAccountsResponse>

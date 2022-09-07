@@ -10,11 +10,11 @@ data class Group(
     val name: String,
     val status: Status,
     val active: Boolean,
-    val activationDate: List<Int>,
+    val activationDate: List<Int>? = null,
     val officeId: Int,
     val officeName: String,
-    val staffId: Int,
-    val staffName: String,
+    val staffId: Int? = null,
+    val staffName: String? = null,
     val hierarchy: String,
     val groupLevel: String,
     val timeline: Timeline,
@@ -31,9 +31,9 @@ data class Group(
         val submittedByUsername: String,
         val submittedByFirstname: String,
         val submittedByLastname: String,
-        val activatedOnDate: List<Int>,
-        val activatedByUsername: String,
-        val activatedByFirstname: String,
-        val activatedByLastname: String
+        val activatedOnDate: List<Int>? = null,
+        val activatedByUsername: String? = null,
+        val activatedByFirstname: String? = null,
+        val activatedByLastname: String? = null
     )
 }

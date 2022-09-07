@@ -12,18 +12,25 @@ import androidx.compose.foundation.selection.toggleable
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.outlined.ArrowDropDown
+import androidx.compose.material.icons.outlined.Clear
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.lerp
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.onEach
 import org.mifos.client.android.R
 import org.mifos.client.android.data.api_services.search.SearchedEntity
+import org.mifos.client.android.ui.components.LinkText
 import org.mifos.client.android.ui.components.ProfileImagePlaceholder
 import org.mifos.client.android.ui.components.RadioGroup
 import org.mifos.client.android.ui.theme.spacing
@@ -40,10 +47,25 @@ fun SearchScreen(
     onSearchEntityClick : (SearchedEntity) -> Unit = {},
     isLoading: Boolean,
     isExactMatchEnabled: Boolean,
-    setIsExactMatchEnabled: (Boolean) -> Unit
+    setIsExactMatchEnabled: (Boolean) -> Unit,
+    effectFlow: Flow<SearchScreenEffects>,
+    isErrorState: Boolean,
+    onRetry: () -> Unit
 ){
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
     var isSearchTypeSelectionDialogShowing by remember { mutableStateOf(false) }
+    val snackBarState = remember { SnackbarHostState() }
+    val context = LocalContext.current
+
+    LaunchedEffect(Unit){
+        effectFlow.onEach {
+            if(it == SearchScreenEffects.ErrorLoadingList)
+                snackBarState.showSnackbar(
+                    message = context.getString(R.string.error_occured_message_default),
+                    actionLabel = context.getString(R.string.ok)
+                )
+        }.collect()
+    }
 
     if(isSearchTypeSelectionDialogShowing){
         AlertDialog(
@@ -90,8 +112,6 @@ fun SearchScreen(
         )
     }
 
-
-
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
@@ -105,6 +125,9 @@ fun SearchScreen(
                 },
                 scrollBehavior = scrollBehavior
             )
+        },
+        snackbarHost = {
+            SnackbarHost(snackBarState)
         }
     ) { paddingValues ->
         val appBarContainerColor by animateColorAsState(
@@ -127,8 +150,23 @@ fun SearchScreen(
                 leadingIcon = {
                     Icon(imageVector = Icons.Default.Search, contentDescription = null)
                 },
+                trailingIcon = {
+                    if(searchString.isNotBlank())
+                        IconButton(
+                            onClick = { setSearchString("") }
+                        ) {
+                            Icon(
+                                imageVector = Icons.Outlined.Clear,
+                                contentDescription = stringResource(R.string.clear_search_query)
+                            )
+                        }
+                },
                 placeholder = { Text(stringResource(R.string.enter_search_query_here)) },
-                colors = TextFieldDefaults.textFieldColors(containerColor = appBarContainerColor)
+                colors = TextFieldDefaults.textFieldColors(
+                    containerColor = appBarContainerColor,
+                    focusedIndicatorColor = Color.Transparent,
+                    unfocusedIndicatorColor = Color.Transparent
+                )
             )
             Box(
                 modifier = Modifier
@@ -147,6 +185,18 @@ fun SearchScreen(
                         CircularProgressIndicator(
                             modifier = Modifier.align(Alignment.Center),
                         )
+                    }
+                    isErrorState -> {
+                        Column(modifier = Modifier.align(Alignment.Center),) {
+                            Text(
+                                text = stringResource(R.string.error_occured_message_default),
+                                style = MaterialTheme.typographyExtra.label
+                            )
+                            LinkText(
+                                text = stringResource(R.string.retry),
+                                onClick = { onRetry() }
+                            )
+                        }
                     }
                     searchResults.isEmpty() -> {
                         Text(

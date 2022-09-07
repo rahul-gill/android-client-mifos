@@ -12,7 +12,7 @@ interface ClientService {
         @Query("offset") offset: Int,
         @Query("limit") limit: Int,
         @Query("paged") paged: Boolean = true,
-    ): ApiResponse<Page<Client>>
+    ): Page<Client>
 
     @GET("clients/{clientId}")
     suspend fun getClient(@Path("clientId") clientId: Int): ApiResponse<Client>

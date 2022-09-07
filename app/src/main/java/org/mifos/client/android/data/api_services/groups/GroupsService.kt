@@ -12,7 +12,7 @@ interface GroupService {
         @Query("offset") offset: Int,
         @Query("limit") limit: Int,
         @Query("paged") paged: Boolean = true,
-    ): ApiResponse<Page<Group>>
+    ): Page<Group>
 
     @GET("groups/{groupId}?associations=all")
     suspend fun getGroupWithAssociations(@Path("groupId") groupId: Int): ApiResponse<Group>

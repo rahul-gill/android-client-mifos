@@ -15,6 +15,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.paging.compose.collectAsLazyPagingItems
 import dev.olshevski.navigation.reimagined.*
 import dev.olshevski.navigation.reimagined.hilt.hiltViewModel
 import org.mifos.client.android.R
@@ -64,12 +65,36 @@ fun HomeNavigationNavHost() {
                             isLoading = viewModel.isLoadingResults.value,
                             isExactMatchEnabled = viewModel.isExactMatchEnabled.value,
                             setIsExactMatchEnabled = { viewModel.isExactMatchEnabled.value = it },
-                            searchResults = viewModel.searchResults.value
+                            searchResults = viewModel.searchResults.value,
+                            effectFlow = viewModel.effectsFlow,
+                            isErrorState = viewModel.isErrorState.value,
+                            onRetry = { viewModel.runSearch() }
                         )
                     }
-                    HomeNavigationScreen.CenterListScreen -> CenterListScreen()
-                    HomeNavigationScreen.ClientListScreen -> ClientListScreen()
-                    HomeNavigationScreen.GroupListScreen -> GroupListScreen()
+                    HomeNavigationScreen.CenterListScreen -> {
+                        val viewModel: CenterListViewModel = hiltViewModel()
+                        CenterListScreen(
+                            centerList = viewModel.centerPagedData.collectAsLazyPagingItems(),
+                            onCreateNewCenter = { /*TODO*/ },
+                            onCenterClick = { /*TODO*/ }
+                        )
+                    }
+                    HomeNavigationScreen.ClientListScreen -> {
+                        val viewModel = hiltViewModel<ClientListViewModel>()
+                        ClientListScreen(
+                            clientList = viewModel.clientPagedData.collectAsLazyPagingItems(),
+                            onCreateNewClient = { /*TODO*/ },
+                            onClientClick = { /*TODO*/ }
+                        )
+                    }
+                    HomeNavigationScreen.GroupListScreen -> {
+                        val viewModel : GroupListViewModel = hiltViewModel()
+                        GroupListScreen(
+                            groupList = viewModel.groupPagedData.collectAsLazyPagingItems(),
+                            onCreateNewGroup = { /*TODO*/ },
+                            onGroupClick = { /*TODO*/ }
+                        )
+                    }
                 }
             }
         }

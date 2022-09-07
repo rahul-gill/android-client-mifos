@@ -8,33 +8,33 @@ import kotlinx.serialization.Serializable
 data class Client(
     val id: Int,
     val accountNo: String,
-    val externalId: String?,
+    val externalId: String? = null,
     val status: Status,
     val subStatus: SubStatus,
     val active: Boolean,
-    val activationDate: List<Int>?,
+    val activationDate: List<Int>? = null,
     val firstname: String,
-    val middlename: String?,
+    val middlename: String? = null,
     val lastname: String,
     val displayName: String,
-    val dateOfBirth: List<Int>?,
+    val dateOfBirth: List<Int>? = null,
     val gender: Gender,
     val clientType: ClientType,
     val clientClassification: ClientClassification,
     val isStaff: Boolean,
     val officeId: Int,
     val officeName: String,
-    val imageId: Int?,
-    val imagePresent: Boolean?,
+    val imageId: Int? = null,
+    val imagePresent: Boolean? = null,
     val timeline: Timeline,
-    val savingsAccountId: Int?,
-    val legalForm: LegalForm?,
+    val savingsAccountId: Int? = null,
+    val legalForm: LegalForm? = null,
     val clientNonPersonDetails: ClientNonPersonDetails,
-    val mobileNo: String?,
-    val staffId: Int?,
-    val staffName: String?,
-    val savingsProductId: Int?,
-    val savingsProductName: String?
+    val mobileNo: String? = null,
+    val staffId: Int? = null,
+    val staffName: String? = null,
+    val savingsProductId: Int? = null,
+    val savingsProductName: String? = null
 ) {
     @JvmInline
     @Serializable
@@ -50,14 +50,14 @@ data class Client(
     data class Gender(
         val active: Boolean,
         val mandatory: Boolean,
-        val id: Int?,
-        val name: String?
+        val id: Int? = null,
+        val name: String? = null
     )
 
     @Serializable
     data class ClientType(
-        val id: Int?,
-        val name: String?,
+        val id: Int? = null,
+        val name: String? = null,
         val active: Boolean,
         val mandatory: Boolean
     )
@@ -66,8 +66,8 @@ data class Client(
     data class ClientClassification(
         val active: Boolean,
         val mandatory: Boolean,
-        val id: Int?,
-        val name: String?
+        val id: Int? = null,
+        val name: String? = null
     )
 
     @Serializable
@@ -76,10 +76,10 @@ data class Client(
         val submittedByUsername: String,
         val submittedByFirstname: String,
         val submittedByLastname: String,
-        val activatedOnDate: List<Int>?,
-        val activatedByUsername: String?,
-        val activatedByFirstname: String?,
-        val activatedByLastname: String?
+        val activatedOnDate: List<Int>? = null,
+        val activatedByUsername: String? = null,
+        val activatedByFirstname: String? = null,
+        val activatedByLastname: String? = null
     )
 
     @JvmInline

@@ -46,7 +46,7 @@ enum class SearchScreenEffects{
 
 @HiltViewModel
 class SearchViewModel @Inject constructor(
-    val searchService: SearchService
+    private val searchService: SearchService
 ): ViewModel() {
     val searchString = mutableStateOf("")
     val searchType = mutableStateOf(SearchType.All)
@@ -54,6 +54,7 @@ class SearchViewModel @Inject constructor(
     val searchResults = mutableStateOf<List<SearchedEntity>>(listOf())
     val isExactMatchEnabled = mutableStateOf(false)
     val isLoadingResults = mutableStateOf(false)
+    val isErrorState = mutableStateOf(false)
 
 
     private val effects =  Channel<SearchScreenEffects>(Channel.UNLIMITED)
@@ -70,9 +71,10 @@ class SearchViewModel @Inject constructor(
         runSearch()
     }
 
-    private fun runSearch(){
+    fun runSearch(){
         searchJob.cancel()
         isLoadingResults.value = false
+        isErrorState.value = false
         searchJob = Job()
         (viewModelScope + searchJob).launch {
             isLoadingResults.value = true
@@ -82,13 +84,12 @@ class SearchViewModel @Inject constructor(
                 searchType.value.apiResource,
                 isExactMatchEnabled.value
             ).onSuccess {
-                println("onSuccess data:$data")
                 isLoadingResults.value = false
                 searchResults.value = this.data
             }.suspendOnFailure {
-                println("suspendOnFailure error:${message()}")
                 isLoadingResults.value = false
                 effects.send(SearchScreenEffects.ErrorLoadingList)
+                isErrorState.value = true
             }
         }
     }

@@ -5,6 +5,9 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import org.mifos.client.android.data.api_services.auth.AuthService
+import org.mifos.client.android.data.api_services.centers.CentersService
+import org.mifos.client.android.data.api_services.client.ClientService
+import org.mifos.client.android.data.api_services.groups.GroupService
 import org.mifos.client.android.data.api_services.search.SearchService
 import org.mifos.client.android.data.buildRetrofitClient
 import org.mifos.client.android.data.local_prefs.PrefsManager
@@ -24,9 +27,21 @@ object HiltAppModule {
     @Provides
     fun authService(retrofit: Retrofit): AuthService = retrofit.create(AuthService::class.java)
 
-
     @Singleton
     @Provides
     fun searchService(retrofit: Retrofit): SearchService = retrofit.create(SearchService::class.java)
+
+    @Singleton
+    @Provides
+    fun clientService(retrofit: Retrofit): ClientService = retrofit.create(ClientService::class.java)
+
+    @Singleton
+    @Provides
+    fun groupService(retrofit: Retrofit): GroupService = retrofit.create(GroupService::class.java)
+
+    @Singleton
+    @Provides
+    fun centerService(retrofit: Retrofit): CentersService = retrofit.create(CentersService::class.java)
+
 
 }

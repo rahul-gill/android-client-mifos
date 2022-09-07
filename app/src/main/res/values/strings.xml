@@ -19,4 +19,14 @@
     <string name="no_results_found">No results found</string>
     <string name="only_exact_matches">Only Exact Matches</string>
     <string name="enter_search_query_here">Enter your search query here</string>
+    <string name="error_occured_message_default">An error occurred</string>
+    <string name="retry">Retry</string>
+    <string name="create_client">Create new client</string>
+    <string name="create_center">Craete Center</string>
+    <string name="create_group">Create Group</string>
+    <string name="account_number">Account number : %1$s</string>
+    <string name="staff_name_with_id">Staff: %1$s(id: %2$s)</string>
+    <string name="office_name_with_id">Office: %1$s(id: %2$s)</string>
+    <string name="no_staff">No Staff</string>
+    <string name="clear_search_query">Clear search query</string>
 </resources>

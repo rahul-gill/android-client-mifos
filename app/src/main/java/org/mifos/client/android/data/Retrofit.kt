@@ -12,6 +12,7 @@ import org.mifos.client.android.data.local_prefs.PrefsManager
 import retrofit2.Retrofit
 import java.util.concurrent.TimeUnit
 
+
 @OptIn(ExperimentalSerializationApi::class)
 fun buildRetrofitClient(
     prefsManager: PrefsManager
@@ -39,10 +40,12 @@ fun buildRetrofitClient(
         )
         .build()
 
+    val json = Json { ignoreUnknownKeys = true }
+
     return Retrofit.Builder()
         .baseUrl(Consts.BASE_URL)
         .client(okHttpClient)
-        .addConverterFactory(Json.asConverterFactory("application/json".toMediaType()))
+        .addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
         .addCallAdapterFactory(ApiResponseCallAdapterFactory.create())
         .build()
 }
