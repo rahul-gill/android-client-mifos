@@ -1,4 +1,4 @@
-package org.mifos.client.android.home
+package org.mifos.client.android.app.group.list
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

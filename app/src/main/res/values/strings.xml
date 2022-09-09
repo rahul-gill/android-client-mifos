@@ -29,4 +29,26 @@
     <string name="office_name_with_id">Office: %1$s(id: %2$s)</string>
     <string name="no_staff">No Staff</string>
     <string name="clear_search_query">Clear search query</string>
+    <string name="profile_picture">Profile Picture</string>
+    <string name="pick_photo_from_gallery">Pick photo from gallery</string>
+    <string name="capture_photo_with_camera">Capture Photo with Camera</string>
+    <string name="first_name">First Name</string>
+    <string name="middle_name">Middle Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="mobile_number">Mobile Number</string>
+    <string name="external_id">External Id</string>
+    <string name="cancel">Cancel</string>
+    <string name="pick_date_of_birth">Pick date of birth</string>
+    <string name="go_back">Go back</string>
+    <string name="gender">Gender</string>
+    <string name="client_type">Client Type</string>
+    <string name="client_classification">Client Classification</string>
+    <string name="office">Office</string>
+    <string name="staff">Staff</string>
+    <string name="date_of_birth">Date of Birth</string>
+    <string name="activation_date">Activation Date</string>
+    <string name="client_active">Client Active</string>
+    <string name="submit">Submit</string>
+    <string name="field_cant_be_empty">%1$s can\'t be empty</string>
+    <string name="invalid_field">Invalid %1$s</string>
 </resources>

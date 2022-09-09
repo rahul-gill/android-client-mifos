@@ -1,7 +1,7 @@
 package org.mifos.client.android.data.api_services.collectionsheet
 
 import com.skydoves.sandwich.ApiResponse
-import org.mifos.client.android.data.Consts
+import org.mifos.client.android.data.ApiDefaults
 import org.mifos.client.android.data.api_services.common.GenericResponse
 import retrofit2.http.*
 
@@ -18,8 +18,8 @@ interface CollectionSheetService {
 
     @GET("centers")
     suspend fun fetchCenterDetails(
-        @Query("dateFormat") format: String = Consts.API_DATE_FORMAT,
-        @Query("locale") locale: String = Consts.API_LOCALE,
+        @Query("dateFormat") format: String = ApiDefaults.API_DATE_FORMAT,
+        @Query("locale") locale: String = ApiDefaults.API_LOCALE,
         @Query("meetingDate") meetingDate: String,
         @Query("officeId") officeId: Int,
         @Query("staffId") staffId: Int

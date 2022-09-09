@@ -1,4 +1,4 @@
-package org.mifos.client.android.home
+package org.mifos.client.android.app.search
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.FastOutLinearInEasing
@@ -23,6 +23,7 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.flow.Flow
@@ -142,7 +143,8 @@ fun SearchScreen(
         Column(
             Modifier
                 .padding(paddingValues)
-                .fillMaxWidth()) {
+                .fillMaxWidth()
+        ) {
             TextField(
                 value = searchString,
                 onValueChange = setSearchString,
@@ -172,36 +174,38 @@ fun SearchScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .weight(1f)
+                    .imePadding()
             ){
                 when{
                     searchString.isBlank() ->{
                         Text(
                             text = stringResource(R.string.search_query_is_empty),
-                            modifier = Modifier.align(Alignment.Center),
+                            modifier = Modifier.align(Alignment.TopCenter).padding(top = MaterialTheme.spacing.marginBetweenSections),
                             style = MaterialTheme.typographyExtra.label
                         )
                     }
                     isLoading -> {
                         CircularProgressIndicator(
-                            modifier = Modifier.align(Alignment.Center),
+                            modifier = Modifier.align(Alignment.TopCenter).padding(top = MaterialTheme.spacing.marginBetweenSections),
                         )
                     }
                     isErrorState -> {
-                        Column(modifier = Modifier.align(Alignment.Center),) {
+                        Column(modifier = Modifier.align(Alignment.TopCenter).padding(top = MaterialTheme.spacing.marginBetweenSections)) {
                             Text(
                                 text = stringResource(R.string.error_occured_message_default),
                                 style = MaterialTheme.typographyExtra.label
                             )
                             LinkText(
                                 text = stringResource(R.string.retry),
-                                onClick = { onRetry() }
+                                onClick = { onRetry() },
+                                textAlign = TextAlign.Center
                             )
                         }
                     }
                     searchResults.isEmpty() -> {
                         Text(
                             text = stringResource(R.string.no_results_found),
-                            modifier = Modifier.align(Alignment.Center),
+                            modifier = Modifier.align(Alignment.TopCenter).padding(top = MaterialTheme.spacing.marginBetweenSections),
                             style = MaterialTheme.typographyExtra.label
                         )
                     }

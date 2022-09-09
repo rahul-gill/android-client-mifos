@@ -14,5 +14,5 @@ data class Staff(
     val isLoanOfficer: Boolean,
     val isActive: Boolean,
     val joiningDate: List<Int>,
-    val mobileNo: String?
+    val mobileNo: String? = null
 )

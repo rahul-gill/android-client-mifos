@@ -6,10 +6,12 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import dev.olshevski.navigation.reimagined.*
 import dev.olshevski.navigation.reimagined.hilt.hiltViewModel
-import org.mifos.client.android.auth.LoginScreen
-import org.mifos.client.android.auth.LoginViewModel
+import org.mifos.client.android.app.auth.LoginScreen
+import org.mifos.client.android.app.auth.LoginViewModel
 import org.mifos.client.android.ui.lock_screen.PassCodeCreateScreen
 import org.mifos.client.android.ui.lock_screen.PassCodeScreen
+import java.time.Instant
+import java.time.temporal.ChronoUnit
 
 enum class UserState {
     LoggedOut, LoggedInPasscodeUnset, LoggedInPasscodeSet, Authorized
@@ -34,19 +36,20 @@ fun TopNavigationNavHost(
         }
     )
     val lifecycleOwner = LocalLifecycleOwner.current
-    var isPasscodeRequiredAgain by remember { mutableStateOf(false) }
+    var timeWhenAppWentInBackground  by remember { mutableStateOf(Instant.now()) }
 
 
     /**
-     * When the app goes in background and then opened again,
+     * When the app in background for long enough and then opened again,
      * The passcode screen should show
      */
     DisposableEffect(lifecycleOwner) {
         val observer = LifecycleEventObserver { _, event ->
-            if (event == Lifecycle.Event.ON_STOP)
-                isPasscodeRequiredAgain = true
+            if (event == Lifecycle.Event.ON_STOP){
+                timeWhenAppWentInBackground = Instant.now()
+            }
             else if (event == Lifecycle.Event.ON_START
-                && isPasscodeRequiredAgain
+                && timeWhenAppWentInBackground.plus(5, ChronoUnit.MINUTES).isBefore(Instant.now())
                 && navController.backstack.entries.last().destination != TopNavigationScreen.PasscodeScreen
             )
                 navController.navigate(TopNavigationScreen.PasscodeScreen)

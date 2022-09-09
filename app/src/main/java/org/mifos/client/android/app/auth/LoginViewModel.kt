@@ -1,4 +1,4 @@
-package org.mifos.client.android.auth
+package org.mifos.client.android.app.auth
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel

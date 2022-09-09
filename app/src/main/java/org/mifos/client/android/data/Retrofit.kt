@@ -19,10 +19,10 @@ fun buildRetrofitClient(
 ): Retrofit {
     val authInterceptor = AuthInterceptor(
         token = { prefsManager.token },
-        tenant = { prefsManager.tenant.ifBlank { Consts.HEADER_TENANT_DEFAULT_VALUE } }
+        tenant = { prefsManager.tenant.ifBlank { ApiDefaults.HEADER_TENANT_DEFAULT_VALUE } }
     )
     val urlInterceptor = UrlInterceptor(
-        url = { prefsManager.instanceBaseUrl.ifBlank { Consts.BASE_URL } }
+        url = { prefsManager.instanceBaseUrl.ifBlank { ApiDefaults.BASE_URL } }
     )
 
     val okHttpClient = OkHttpClient.Builder()
@@ -43,7 +43,7 @@ fun buildRetrofitClient(
     val json = Json { ignoreUnknownKeys = true }
 
     return Retrofit.Builder()
-        .baseUrl(Consts.BASE_URL)
+        .baseUrl(ApiDefaults.BASE_URL)
         .client(okHttpClient)
         .addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
         .addCallAdapterFactory(ApiResponseCallAdapterFactory.create())

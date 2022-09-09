@@ -19,6 +19,6 @@ data class CenterWithAssociations(
     private val active: Boolean,
     private val activationDate: List<Int>,
     private val timeline: Center.Timeline,
-    private val groupMembers: List<Group> = ArrayList<Group>(),
+    private val groupMembers: List<Group> = listOf(),
     private val collectionMeetingCalendar: CenterDetails.MeetingFallCalendar.CollectionMeetingCalendar
 )

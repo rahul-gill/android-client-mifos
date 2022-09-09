@@ -11,7 +11,7 @@ class UrlInterceptor(
         val request = chain.request()
         return chain.proceed(
             request.newBuilder()
-                .url(request.url.toString().replace(Consts.BASE_URL, url()).toHttpUrlOrNull() ?: request.url)
+                .url(request.url.toString().replace(ApiDefaults.BASE_URL, url()).toHttpUrlOrNull() ?: request.url)
                 .build()
         )
     }

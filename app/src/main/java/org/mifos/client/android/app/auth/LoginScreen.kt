@@ -1,4 +1,4 @@
-package org.mifos.client.android.auth
+package org.mifos.client.android.app.auth
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
@@ -76,8 +76,7 @@ fun LoginScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(horizontal = 16.dp)
-            .systemBarsPadding(),
+            .padding(horizontal = 16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
@@ -116,7 +115,7 @@ fun LoginScreen(
                             Icon(imageVector = Icons.Outlined.Clear, "Clear username")
                         }
                 },
-                singleLine = true,
+                maxLines = 1,
                 modifier = Modifier
                     .padding(bottom = 16.dp)
                     .fillMaxWidth()
@@ -154,7 +153,7 @@ fun LoginScreen(
                         Icon(imageVector = image, description)
                     }
                 },
-                singleLine = true,
+                maxLines = 1,
                 modifier = Modifier
                     .padding(bottom = 16.dp)
                     .fillMaxWidth()

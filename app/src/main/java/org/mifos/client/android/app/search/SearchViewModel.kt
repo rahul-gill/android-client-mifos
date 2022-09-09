@@ -1,4 +1,4 @@
-package org.mifos.client.android.home
+package org.mifos.client.android.app.search
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -12,7 +12,6 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.plus
 import org.mifos.client.android.R
-import org.mifos.client.android.auth.LoginScreenEffects
 import org.mifos.client.android.data.api_services.search.SearchService
 import org.mifos.client.android.data.api_services.search.SearchedEntity
 import javax.inject.Inject
@@ -50,7 +49,7 @@ class SearchViewModel @Inject constructor(
 ): ViewModel() {
     val searchString = mutableStateOf("")
     val searchType = mutableStateOf(SearchType.All)
-    var searchJob = Job()
+    private var searchJob = Job()
     val searchResults = mutableStateOf<List<SearchedEntity>>(listOf())
     val isExactMatchEnabled = mutableStateOf(false)
     val isLoadingResults = mutableStateOf(false)

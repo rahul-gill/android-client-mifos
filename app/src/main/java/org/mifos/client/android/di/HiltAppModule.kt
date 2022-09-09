@@ -9,9 +9,9 @@ import org.mifos.client.android.data.api_services.centers.CentersService
 import org.mifos.client.android.data.api_services.client.ClientService
 import org.mifos.client.android.data.api_services.groups.GroupService
 import org.mifos.client.android.data.api_services.search.SearchService
+import org.mifos.client.android.data.api_services.staff.StaffService
 import org.mifos.client.android.data.buildRetrofitClient
 import org.mifos.client.android.data.local_prefs.PrefsManager
-import org.mifos.client.android.home.SearchType
 import retrofit2.Retrofit
 import javax.inject.Singleton
 
@@ -42,6 +42,10 @@ object HiltAppModule {
     @Singleton
     @Provides
     fun centerService(retrofit: Retrofit): CentersService = retrofit.create(CentersService::class.java)
+
+    @Singleton
+    @Provides
+    fun staffService(retrofit: Retrofit): StaffService = retrofit.create(StaffService::class.java)
 
 
 }

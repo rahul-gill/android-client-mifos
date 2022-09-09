@@ -2,11 +2,12 @@ package org.mifos.client.android.data.api_services.client
 
 
 import kotlinx.serialization.Serializable
+import org.mifos.client.android.data.api_services.staff.Staff
 
 @Serializable
 data class ClientTemplate(
     val officeOptions: List<OfficeOption>,
-    val staffOptions: List<StaffOption>,
+    val staffOptions: List<Staff>,
     val savingProductOptions: List<SavingProductOption>,
     val genderOptions: List<GenderOption>,
     val clientTypeOptions: List<ClientTypeOption>,
@@ -18,20 +19,6 @@ data class ClientTemplate(
         val id: Int,
         val name: String,
         val nameDecorated: String
-    )
-
-    @Serializable
-    data class StaffOption(
-        val id: Int,
-        val firstname: String,
-        val lastname: String,
-        val displayName: String,
-        val mobileNo: String,
-        val officeId: Int,
-        val officeName: String,
-        val isLoanOfficer: Boolean,
-        val isActive: Boolean,
-        val joiningDate: List<Int>
     )
 
     @Serializable

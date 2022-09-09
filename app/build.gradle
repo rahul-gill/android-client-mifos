@@ -62,6 +62,9 @@ dependencies {
     implementation libraries.compose_navigation_reimagined
     implementation libraries.accompanist
     implementation libraries.paging
+    implementation libraries.coil
+    implementation libraries.compose_dialogs
+    debugImplementation libraries.what_the_stack
 
     testImplementation libraries.junit
     androidTestImplementation libraries.android_tests

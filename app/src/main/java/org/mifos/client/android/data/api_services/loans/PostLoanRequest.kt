@@ -1,6 +1,6 @@
 package org.mifos.client.android.data.api_services.loans
 
-import org.mifos.client.android.data.Consts
+import org.mifos.client.android.data.ApiDefaults
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -9,7 +9,7 @@ data class PostLoansRequest (
     val amortizationType: Int,
     val groupId: Int? = null,
     val clientId: Int? = null,
-    val dateFormat: String = Consts.API_DATE_FORMAT,
+    val dateFormat: String = ApiDefaults.API_DATE_FORMAT,
     val expectedDisbursementDate: String,
     val interestCalculationPeriodType: Int,
     val interestRatePerPeriod: Double,
@@ -19,7 +19,7 @@ data class PostLoansRequest (
     val repaymentFrequencyDayOfWeekType: Int,
     val repaymentFrequencyNthDayType: Int,
     val loanType: String,
-    val locale: String = Consts.API_LOCALE,
+    val locale: String = ApiDefaults.API_LOCALE,
     val numberOfRepayments: String,
     val principal: String,
     val productId: Int,

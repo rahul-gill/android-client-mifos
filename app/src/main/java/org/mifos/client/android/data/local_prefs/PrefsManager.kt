@@ -1,6 +1,5 @@
 package org.mifos.client.android.data.local_prefs
 
-import android.app.Application
 import android.content.Context
 import androidx.core.content.edit
 import dagger.hilt.android.qualifiers.ApplicationContext

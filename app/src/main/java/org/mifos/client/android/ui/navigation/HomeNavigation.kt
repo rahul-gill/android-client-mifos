@@ -1,8 +1,10 @@
 package org.mifos.client.android.ui.navigation
 
 import androidx.activity.compose.BackHandler
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.CorporateFare
 import androidx.compose.material.icons.outlined.Group
@@ -12,14 +14,18 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.paging.compose.collectAsLazyPagingItems
 import dev.olshevski.navigation.reimagined.*
 import dev.olshevski.navigation.reimagined.hilt.hiltViewModel
 import org.mifos.client.android.R
-import org.mifos.client.android.home.*
+import org.mifos.client.android.app.center.list.CenterListScreen
+import org.mifos.client.android.app.center.list.CenterListViewModel
+import org.mifos.client.android.app.group.list.GroupListScreen
+import org.mifos.client.android.app.group.list.GroupListViewModel
+import org.mifos.client.android.app.search.*
 
 
 enum class HomeNavigationScreen {
@@ -42,16 +48,28 @@ val HomeNavigationScreen.tabIcon
         HomeNavigationScreen.CenterListScreen -> Icons.Outlined.CorporateFare
     }
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun HomeNavigationNavHost() {
     val navController = rememberNavController(startDestination = HomeNavigationScreen.SearchScreen)
-    BottomNavigationBackHandler(navController)
+    var shouldShowBottomNav by remember { mutableStateOf(true) }
+    //custom back handler for bottom navigation
+    BackHandler(enabled = navController.backstack.entries.size > 1) {
+        val lastEntry = navController.backstack.entries.last()
+        if (lastEntry.destination == HomeNavigationScreen.values()[0]) {
+            // The start destination should always be the last to pop. We move it to the start
+            // to preserve its saved state and view models.
+            navController.moveLastEntryToStart()
+        } else {
+            navController.pop()
+        }
+    }
 
 
     Column {
         Box(Modifier.weight(1f)) {
             NavHost(
-                controller = navController
+                controller = navController,
             ) { screen ->
                 when(screen){
                     HomeNavigationScreen.SearchScreen -> {
@@ -80,12 +98,9 @@ fun HomeNavigationNavHost() {
                         )
                     }
                     HomeNavigationScreen.ClientListScreen -> {
-                        val viewModel = hiltViewModel<ClientListViewModel>()
-                        ClientListScreen(
-                            clientList = viewModel.clientPagedData.collectAsLazyPagingItems(),
-                            onCreateNewClient = { /*TODO*/ },
-                            onClientClick = { /*TODO*/ }
-                        )
+                        ClientNavigationNavHost{
+                            shouldShowBottomNav = it
+                        }
                     }
                     HomeNavigationScreen.GroupListScreen -> {
                         val viewModel : GroupListViewModel = hiltViewModel()
@@ -98,46 +113,34 @@ fun HomeNavigationNavHost() {
                 }
             }
         }
-
         val lastDestination = navController.backstack.entries.last().destination
-        NavigationBar {
-            HomeNavigationScreen.values().forEach { destination ->
-                val tabTitle = stringResource(destination.tabTitleId)
-                NavigationBarItem(
-                    label = { Text(tabTitle) },
-                    icon = {
-                        Icon(
-                            imageVector = destination.tabIcon,
-                            contentDescription = tabTitle
-                        )
-                    },
-                    selected = destination == lastDestination,
-                    onClick = {
-                        // keep only one instance of a destination in the backstack
-                        if (!navController.moveToTop { it == destination }) {
-                            // if there is no existing instance, add it
-                            navController.navigate(destination)
+        AnimatedVisibility(
+            visible = shouldShowBottomNav && !WindowInsets.isImeVisible,
+            enter = slideInVertically{ it },
+            exit = slideOutVertically{ it }
+        ) {
+            NavigationBar {
+                HomeNavigationScreen.values().forEach { destination ->
+                    val tabTitle = stringResource(destination.tabTitleId)
+                    NavigationBarItem(
+                        label = { Text(tabTitle) },
+                        icon = {
+                            Icon(
+                                imageVector = destination.tabIcon,
+                                contentDescription = tabTitle
+                            )
+                        },
+                        selected = destination == lastDestination,
+                        onClick = {
+                            // keep only one instance of a destination in the backstack
+                            if (!navController.moveToTop { it == destination }) {
+                                // if there is no existing instance, add it
+                                navController.navigate(destination)
+                            }
                         }
-                    }
-                )
+                    )
+                }
             }
-        }
-    }
-}
-
-
-@Composable
-private fun BottomNavigationBackHandler(
-    navController: NavController<HomeNavigationScreen>
-) {
-    BackHandler(enabled = navController.backstack.entries.size > 1) {
-        val lastEntry = navController.backstack.entries.last()
-        if (lastEntry.destination == HomeNavigationScreen.values()[0]) {
-            // The start destination should always be the last to pop. We move it to the start
-            // to preserve its saved state and view models.
-            navController.moveLastEntryToStart()
-        } else {
-            navController.pop()
         }
     }
 }

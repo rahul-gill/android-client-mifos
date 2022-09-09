@@ -25,7 +25,11 @@ ext.versions = [
         hilt: "2.43.2",
         accompanist: "0.26.2-beta",
         paging: "3.1.1",
-        paging_compose: "1.0.0-alpha16"
+        paging_compose: "1.0.0-alpha16",
+        coil: "2.2.1",
+        compose_bottomsheetdialog: "1.0.1",
+        compose_dialogs: "0.8.1-rc",
+        what_the_stack: "1.0.0-alpha04"
 ]
 
 
@@ -57,6 +61,12 @@ ext.libraries = [
                 "androidx.paging:paging-runtime:$versions.paging",
                 "androidx.paging:paging-compose:$versions.paging_compose"
         ],
+        coil: "io.coil-kt:coil-compose:$versions.coil",
+        compose_dialogs: [
+                "com.holix.android:bottomsheetdialog-compose:$versions.compose_bottomsheetdialog",
+                "io.github.vanpra.compose-material-dialogs:datetime:$versions.compose_dialogs"
+        ],
+        what_the_stack: "com.github.haroldadmin:WhatTheStack:$versions.what_the_stack",
         retrofit: [
                 "com.squareup.retrofit2:retrofit:$versions.retrofit",
                 "com.squareup.okhttp3:logging-interceptor:$versions.okhttp_logging_interceptor",
