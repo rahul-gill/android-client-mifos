@@ -43,8 +43,10 @@ fun ClientListScreen(
             )
         },
         floatingActionButton = {
-            FloatingActionButton(onClick = { onCreateNewClient() }) {
-                Icon(imageVector = Icons.Default.Add, contentDescription = stringResource(R.string.create_client))
+            Column {
+                FloatingActionButton(onClick = { onCreateNewClient() }) {
+                    Icon(imageVector = Icons.Default.Add, contentDescription = stringResource(R.string.create_client))
+                }
             }
         },
     ) { paddingValues ->

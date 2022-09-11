@@ -153,7 +153,7 @@ fun PassCodeCreateScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Box(
-                modifier = Modifier.size(MaterialTheme.size.imageLarge)
+                modifier = Modifier.height(MaterialTheme.size.imageLarge)
             ) {
                 StepIndicator(
                     activeStep = if (passcode.length == passcodeLength) 1 else 0,

@@ -20,7 +20,7 @@ object TypographyExtra {
         @Composable @ReadOnlyComposable get() = MaterialTheme.typography.bodyMedium
     val label: TextStyle
         @Composable @ReadOnlyComposable get() = MaterialTheme.typography.labelMedium.copy(
-            MaterialTheme.typography.labelMedium.color.copy(
+            MaterialTheme.colorScheme.onSurface.copy(
                 alpha = Alpha.low
             )
         )
@@ -28,7 +28,7 @@ object TypographyExtra {
         @Composable @ReadOnlyComposable get() = MaterialTheme.typography.bodyLarge
     val cardSubtitle: TextStyle
         @Composable @ReadOnlyComposable get() = MaterialTheme.typography.bodyMedium.copy(
-            MaterialTheme.typography.bodyMedium.color.copy(
+            MaterialTheme.colorScheme.onSurface.copy(
                 alpha = Alpha.low
             )
         )

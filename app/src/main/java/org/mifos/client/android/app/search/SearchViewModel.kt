@@ -70,6 +70,11 @@ class SearchViewModel @Inject constructor(
         runSearch()
     }
 
+    fun switchExactMatchEnabled(){
+        isExactMatchEnabled.value = !isExactMatchEnabled.value
+        runSearch()
+    }
+
     fun runSearch(){
         searchJob.cancel()
         isLoadingResults.value = false

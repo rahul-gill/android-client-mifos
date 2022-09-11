@@ -7,7 +7,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class PassCodeViewModel @Inject constructor(
-    val manager: PrefsManager
+    private val manager: PrefsManager
 ) : ViewModel() {
     fun logout(){
         manager.passcode = ""

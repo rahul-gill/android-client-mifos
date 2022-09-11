@@ -148,7 +148,8 @@ fun SearchScreen(
             TextField(
                 value = searchString,
                 onValueChange = setSearchString,
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth(),
                 leadingIcon = {
                     Icon(imageVector = Icons.Default.Search, contentDescription = null)
                 },
@@ -174,23 +175,28 @@ fun SearchScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .weight(1f)
-                    .imePadding()
             ){
                 when{
                     searchString.isBlank() ->{
                         Text(
                             text = stringResource(R.string.search_query_is_empty),
-                            modifier = Modifier.align(Alignment.TopCenter).padding(top = MaterialTheme.spacing.marginBetweenSections),
+                            modifier = Modifier
+                                .align(Alignment.TopCenter)
+                                .padding(top = MaterialTheme.spacing.marginBetweenSections),
                             style = MaterialTheme.typographyExtra.label
                         )
                     }
                     isLoading -> {
                         CircularProgressIndicator(
-                            modifier = Modifier.align(Alignment.TopCenter).padding(top = MaterialTheme.spacing.marginBetweenSections),
+                            modifier = Modifier
+                                .align(Alignment.TopCenter)
+                                .padding(top = MaterialTheme.spacing.marginBetweenSections),
                         )
                     }
                     isErrorState -> {
-                        Column(modifier = Modifier.align(Alignment.TopCenter).padding(top = MaterialTheme.spacing.marginBetweenSections)) {
+                        Column(modifier = Modifier
+                            .align(Alignment.TopCenter)
+                            .padding(top = MaterialTheme.spacing.marginBetweenSections)) {
                             Text(
                                 text = stringResource(R.string.error_occured_message_default),
                                 style = MaterialTheme.typographyExtra.label
@@ -205,7 +211,9 @@ fun SearchScreen(
                     searchResults.isEmpty() -> {
                         Text(
                             text = stringResource(R.string.no_results_found),
-                            modifier = Modifier.align(Alignment.TopCenter).padding(top = MaterialTheme.spacing.marginBetweenSections),
+                            modifier = Modifier
+                                .align(Alignment.TopCenter)
+                                .padding(top = MaterialTheme.spacing.marginBetweenSections),
                             style = MaterialTheme.typographyExtra.label
                         )
                     }

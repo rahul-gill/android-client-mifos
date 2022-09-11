@@ -26,6 +26,8 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
 import org.mifos.client.android.R
+import org.mifos.client.android.ui.theme.size
+import org.mifos.client.android.ui.theme.spacing
 
 
 @OptIn(ExperimentalComposeUiApi::class, ExperimentalMaterial3Api::class)
@@ -73,21 +75,21 @@ fun LoginScreen(
             .fillMaxSize()
             .padding(horizontal = 16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+        verticalArrangement = Arrangement.Top
     ) {
 
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .imePadding(),
+                .imePadding()
+                .padding(top = MaterialTheme.spacing.marginBetweenSections),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Image(
                 painter = painterResource(id = R.drawable.ic_launcher_foreground),
                 contentDescription = null,
                 modifier = Modifier
-                    .size(128.dp)
-                    .padding(32.dp)
+                    .size(MaterialTheme.size.imageLarge)
                     .align(Alignment.CenterHorizontally)
             )
             OutlinedTextField(
