@@ -20,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
@@ -42,6 +43,27 @@ fun PassCodeScreen(
     val scope = rememberCoroutineScope()
     val context = LocalContext.current
     val xShake = remember { Animatable(initialValue = 0.0F) }
+    var isLogoutConfirmDialogShowing by mutableStateOf(false)
+
+    if(isLogoutConfirmDialogShowing)
+        AlertDialog(
+            onDismissRequest = { isLogoutConfirmDialogShowing = false },
+            title = { Text(text = stringResource(R.string.logout), textAlign = TextAlign.Center) },
+            text = { Text(text = stringResource(R.string.logout_dialog_description), textAlign = TextAlign.Center) },
+            confirmButton = {
+                Button(onClick = {
+                    onManualLogin()
+                    isLogoutConfirmDialogShowing = false
+                }) {
+                    Text(text = stringResource(id = R.string.logout))
+                }
+            },
+            dismissButton = {
+                Button(onClick = { isLogoutConfirmDialogShowing = false }) {
+                    Text(text = stringResource(id = R.string.cancel))
+                }
+            }
+        )
 
     Scaffold(
         snackbarHost = { SnackbarHost(hostState = snackBarHostState) }
@@ -139,8 +161,8 @@ fun PassCodeCreateScreen(
                 )
                 Text(
                     text =
-                    if (passcode.length != passcodeLength) "Create Passcode"
-                    else "Confirm Passcode",
+                    if (passcode.length != passcodeLength) stringResource(R.string.create_passcode)
+                    else stringResource(R.string.confirm_passcode),
                     modifier = Modifier.align(Alignment.Center),
                     style = MaterialTheme.typographyExtra.heading
                 )

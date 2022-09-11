@@ -51,4 +51,12 @@
     <string name="submit">Submit</string>
     <string name="field_cant_be_empty">%1$s can\'t be empty</string>
     <string name="invalid_field">Invalid %1$s</string>
+    <string name="incorrect_credentials_provided">Provided credentials are incorrect</string>
+    <string name="clear_username">Clear username</string>
+    <string name="hide_password">Hide password</string>
+    <string name="show_password">Show password</string>
+    <string name="logout">Logout</string>
+    <string name="logout_dialog_description">You\'ll be logged out of your account. Are you sure?</string>
+    <string name="create_passcode">Create Passcode</string>
+    <string name="confirm_passcode">Confirm Passcode</string>
 </resources>

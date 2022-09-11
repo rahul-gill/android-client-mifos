@@ -15,6 +15,7 @@ import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -59,16 +60,10 @@ fun LoginScreen(
     if(errorDialogState)
         AlertDialog(
             onDismissRequest = { errorDialogState = false },
-            title = { Text(text = "Provided credentials are incorrect", textAlign = TextAlign.Center) },
-            text = { Text(text = "We can send you an email to help you get back into your account.", textAlign = TextAlign.Center) },
+            title = { Text(text = stringResource(R.string.incorrect_credentials_provided), textAlign = TextAlign.Center) },
             confirmButton = {
                 TextButton(onClick = { errorDialogState = false }) {
-                    Text(text = "Send Email")
-                }
-            },
-            dismissButton = {
-                TextButton(onClick = { errorDialogState = false }) {
-                    Text(text = "Try again", color = MaterialTheme.colorScheme.onSurface)
+                    Text(text = stringResource(id = R.string.retry), color = MaterialTheme.colorScheme.onSurface)
                 }
             }
         )
@@ -108,11 +103,11 @@ fun LoginScreen(
                 keyboardActions = KeyboardActions(
                     onNext = { focusManager.moveFocus(FocusDirection.Down) }
                 ),
-                label = { Text(text = "Username") },
+                label = { Text(text = stringResource(id = R.string.username)) },
                 trailingIcon = {
                     if (username.isNotEmpty())
                         IconButton(onClick = { onUsernameChange("") }) {
-                            Icon(imageVector = Icons.Outlined.Clear, "Clear username")
+                            Icon(imageVector = Icons.Outlined.Clear, stringResource(R.string.clear_username))
                         }
                 },
                 maxLines = 1,
@@ -129,7 +124,7 @@ fun LoginScreen(
                         contentDescription = null
                     )
                 },
-                label = { Text(text = "Password") },
+                label = { Text(text = stringResource(id = R.string.password)) },
                 visualTransformation = if (isPasswordVisible) VisualTransformation.None else PasswordVisualTransformation(),
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Password,
@@ -147,7 +142,7 @@ fun LoginScreen(
                     else Icons.Outlined.VisibilityOff
 
                     val description =
-                        if (isPasswordVisible) "Hide password" else "Show password"
+                         stringResource(if (isPasswordVisible) R.string.hide_password else R.string.show_password)
 
                     IconButton(onClick = onSwitchPasswordVisibility) {
                         Icon(imageVector = image, description)

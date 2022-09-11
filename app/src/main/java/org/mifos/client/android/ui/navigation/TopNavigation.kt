@@ -10,6 +10,7 @@ import org.mifos.client.android.app.auth.LoginScreen
 import org.mifos.client.android.app.auth.LoginViewModel
 import org.mifos.client.android.ui.lock_screen.PassCodeCreateScreen
 import org.mifos.client.android.ui.lock_screen.PassCodeScreen
+import org.mifos.client.android.ui.lock_screen.PassCodeViewModel
 import java.time.Instant
 import java.time.temporal.ChronoUnit
 
@@ -97,6 +98,7 @@ fun TopNavigationNavHost(
                 )
             }
             TopNavigationScreen.PasscodeScreen -> {
+                val viewModel : PassCodeViewModel = hiltViewModel()
                 PassCodeScreen(
                     enterPassCode = {
                         val result = authenticateUser(it)
@@ -109,6 +111,7 @@ fun TopNavigationNavHost(
                         result
                     },
                     onManualLogin = {
+                        viewModel.logout()
                         navController.navigate(TopNavigationScreen.LoginScreen)
                         navController.setNewBackstack(listOf(navEntry(TopNavigationScreen.LoginScreen)))
                     }
